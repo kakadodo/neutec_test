@@ -31,7 +31,7 @@ const getFlattenMenu = (menu) => {
 };
 
 onMounted(async () => {
-  const data = await fetch("/api/menu.json");
+  const data = await fetch(`${import.meta.env.BASE_URL}/api/menu.json`);
   list.value = await data.json();
   focusItemKey.value = localStorage.getItem("FOCUS_ITEM_KEY") ?? "";
   flattenList.value = getFlattenMenu(list.value);
