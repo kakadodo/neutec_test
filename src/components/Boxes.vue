@@ -1,7 +1,11 @@
 <script setup>
 import { ref } from "vue";
 import boxesData from "../demo/boxes.json";
-
+import BallType1 from "./BallType1.vue";
+import BallType2 from "./BallType2.vue";
+defineProps({
+  ballType: Number
+})
 const boxes = ref(boxesData);
 </script>
 
@@ -12,11 +16,8 @@ const boxes = ref(boxesData);
       v-for="box in boxes"
       :key="box.id"
     ></div>
-    <div class="ball-wrapper">
-      <template v-for="box in boxes" :key="box.id">
-        <div :class="['ball', `ball-${box.id}`]" v-if="box.hasBall">0</div>
-      </template>
-    </div>
+    <BallType1 v-if="ballType === 1" :boxes="boxes" />
+    <BallType2 v-if="ballType === 2" />
   </div>
 </template>
 
@@ -65,17 +66,8 @@ const boxes = ref(boxesData);
   left: 0;
   width: 100%;
   height: 100%;
-  animation: ballMoveRight 1.5s infinite;
 }
-@keyframes ballMoveRight {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(66%);
-  }
-}
-.ball {
+:deep(.ball) {
   position: absolute;
   width: 30px;
   height: 30px;
