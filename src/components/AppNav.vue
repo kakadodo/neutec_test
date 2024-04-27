@@ -18,11 +18,12 @@ const onUpdateFocusItem = (key) => {
 const flattenList = ref([]);
 const getFlattenMenu = (menu) => {
   const flatMenu = [];
-  const flatten = (menu) => {
+  const flatten = (menu, parentText) => {
     menu.forEach((item) => {
-      flatMenu.push({ key: item.key, text: item.text });
+      let collection = parentText? [...parentText, item.text] : [item.text];
+      flatMenu.push({ key: item.key, text: collection.join('->') });
       if (item.children) {
-        flatten(item.children);
+        flatten(item.children, collection);
       }
     });
   };
@@ -117,5 +118,6 @@ onMounted(async () => {
 }
 .select {
   margin: 10px 20px;
+  width: calc(100% - 40px);
 }
 </style>
