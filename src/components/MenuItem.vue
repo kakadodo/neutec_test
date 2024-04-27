@@ -37,6 +37,7 @@ const onUpdateFocusItem = (key) => {
   padding-left: 20px;
   padding-top: 10px;
   padding-bottom: 10px;
+  cursor: pointer;
 
   .name {
     padding: 10px 0;

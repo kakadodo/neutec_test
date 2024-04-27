@@ -1,12 +1,12 @@
 <script setup>
-import { ref } from 'vue';
-import AppNav from './components/AppNav.vue';
-import Boxes from './components/Boxes.vue';
+import { ref } from "vue";
+import AppNav from "./components/AppNav.vue";
+import Boxes from "./components/Boxes.vue";
 
 const ballType = ref(1);
 const switchBallType = (type) => {
   ballType.value = type;
-}
+};
 </script>
 
 <template>
@@ -14,9 +14,24 @@ const switchBallType = (type) => {
     <AppNav />
     <div class="main">
       <div class="switch">
-        <button @click="switchBallType(1)">type1</button>
-        <button @click="switchBallType(2)">type2</button>
-        <button @click="switchBallType(3)">type3</button>
+        <button
+          :class="[{ active: ballType === 1 }]"
+          @click="switchBallType(1)"
+        >
+          type1
+        </button>
+        <button
+          :class="[{ active: ballType === 2 }]"
+          @click="switchBallType(2)"
+        >
+          type2
+        </button>
+        <button
+          :class="[{ active: ballType === 3 }]"
+          @click="switchBallType(3)"
+        >
+          type3
+        </button>
       </div>
       <Boxes :ballType="ballType" />
     </div>
@@ -46,5 +61,15 @@ const switchBallType = (type) => {
   display: flex;
   gap: 10px;
   margin-bottom: 10px;
+  
+  button {
+    padding: 4px 8px;
+    border: 1px solid #000;
+    background-color: #fff;
+
+    &.active {
+      background-color: yellow;
+    }
+  }
 }
 </style>

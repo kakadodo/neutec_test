@@ -12,7 +12,7 @@ const moveBall = () => {
       isBallMove.value = !isBallMove.value;
       moveBall();
     },
-    isBallMove.value ? 1500 : 0
+    isBallMove.value ? 1500 : 10
   );
 };
 onMounted(() => {
