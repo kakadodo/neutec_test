@@ -1,25 +1,40 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import Menu from './Menu.vue';
+import { ref, onMounted, computed } from "vue";
+import Menu from "./Menu.vue";
 
 const list = ref([]);
 const isDrawerOpen = ref(true);
-const focusItemKey = ref('');
+const focusItemKey = ref("");
 
 const toggleDrawer = (isShow) => {
   isDrawerOpen.value = isShow;
 };
 
 const onUpdateFocusItem = (key) => {
-  console.log(key);
   focusItemKey.value = key;
-  localStorage.setItem('FOCUS_ITEM_KEY', key);
-}
+  localStorage.setItem("FOCUS_ITEM_KEY", key);
+};
+
+const flattenList = ref([]);
+const getFlattenMenu = (menu) => {
+  const flatMenu = [];
+  const flatten = (menu) => {
+    menu.forEach((item) => {
+      flatMenu.push({ key: item.key, text: item.text });
+      if (item.children) {
+        flatten(item.children);
+      }
+    });
+  };
+  flatten(menu);
+  return flatMenu;
+};
 
 onMounted(async () => {
-  const data = await fetch('/api/menu.json');
+  const data = await fetch("/api/menu.json");
   list.value = await data.json();
-  focusItemKey.value = localStorage.getItem('FOCUS_ITEM_KEY') ?? '';
+  focusItemKey.value = localStorage.getItem("FOCUS_ITEM_KEY") ?? "";
+  flattenList.value = getFlattenMenu(list.value);
 });
 </script>
 
@@ -40,7 +55,21 @@ onMounted(async () => {
     <div :class="['drawer', { show: isDrawerOpen }]">
       <div class="drawer-backdrop" @click="toggleDrawer(false)"></div>
       <div class="drawer-container">
-        <Menu :list="list" :focusItemKey="focusItemKey" @updateFocusItem="onUpdateFocusItem" />
+        <select v-model="focusItemKey" class="select">
+          <option value="" disabled>--</option>
+          <option
+            v-for="item in flattenList"
+            :value="item.key"
+            :key="item.key"
+          >
+            {{ item.text }}
+          </option>
+        </select>
+        <Menu
+          :list="list"
+          :focusItemKey="focusItemKey"
+          @updateFocusItem="onUpdateFocusItem"
+        />
       </div>
     </div>
   </nav>
@@ -57,11 +86,11 @@ onMounted(async () => {
   }
 }
 .drawer {
-  position: fixed;
+  position: absolute;
   right: 0;
   top: 0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   transform: translateX(100%);
   transition: transform 0.3s;
   &.show {
@@ -78,11 +107,14 @@ onMounted(async () => {
     position: absolute;
     right: 0;
     top: 0;
-    padding: 20px;
-    width: 50vw;
+    width: 50%;
     height: 100%;
     background-color: rgba(0, 0, 0, 85%);
     color: #fff;
+    overflow-y: auto;
   }
+}
+.select {
+  margin: 10px 20px;
 }
 </style>

@@ -13,11 +13,14 @@ const onClick = (item) => {
 
 const onUpdateFocusItem = (key) => {
   emit("updateFocusItem", key);
-}
+};
 </script>
 
 <template>
-  <li :class="['menu-item', {active: focusItemKey === item.key }]" @click.stop="onClick(item)">
+  <li
+    :class="['menu-item', { active: focusItemKey === item.key }]"
+    @click.stop="onClick(item)"
+  >
     <div class="name">{{ item.text }}</div>
     <Menu
       v-if="item.children"
@@ -31,13 +34,25 @@ const onUpdateFocusItem = (key) => {
 
 <style scoped lang="scss">
 .menu-item {
-  margin: 20px 0;
+  padding-left: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  .name {
+    padding: 10px 0;
+
+    ~ .menu .menu-item {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
 
   .menu {
     display: none;
   }
 
   &.active {
+    background-color: #666;
     > .name {
       color: yellow;
     }
@@ -47,6 +62,7 @@ const onUpdateFocusItem = (key) => {
   }
 
   &:has(.menu-item.active) {
+    background-color: #666;
     > .name {
       color: yellow;
     }

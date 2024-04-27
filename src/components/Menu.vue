@@ -27,8 +27,7 @@ const onClickItem = (key) => {
 
 <style scoped>
 .menu {
-  padding-left: 16px;
-
+  
   &:has(.menu-item.active) {
     display: block;
   }
