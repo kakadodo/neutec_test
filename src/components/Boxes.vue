@@ -3,6 +3,7 @@ import { ref } from "vue";
 import boxesData from "../demo/boxes.json";
 import BallType1 from "./BallType1.vue";
 import BallType2 from "./BallType2.vue";
+import BallType3 from "./BallType3.vue";
 defineProps({
   ballType: Number
 })
@@ -18,6 +19,7 @@ const boxes = ref(boxesData);
     ></div>
     <BallType1 v-if="ballType === 1" :boxes="boxes" />
     <BallType2 v-if="ballType === 2" />
+    <BallType3 v-if="ballType === 3" />
   </div>
 </template>
 

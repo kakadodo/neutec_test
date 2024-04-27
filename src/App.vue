@@ -16,6 +16,7 @@ const switchBallType = (type) => {
       <div class="switch">
         <button @click="switchBallType(1)">type1</button>
         <button @click="switchBallType(2)">type2</button>
+        <button @click="switchBallType(3)">type3</button>
       </div>
       <Boxes :ballType="ballType" />
     </div>
