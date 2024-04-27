@@ -25,7 +25,7 @@ const onClickItem = (key) => {
   </ul>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .menu {
   
   &:has(.menu-item.active) {

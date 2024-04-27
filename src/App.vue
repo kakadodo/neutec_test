@@ -1,13 +1,14 @@
 <script setup>
 import AppNav from './components/AppNav.vue';
-
-
+import Boxes from './components/Boxes.vue';
 </script>
 
 <template>
   <div class="wrapper">
     <AppNav />
-    <div class="main"></div>
+    <div class="main">
+      <Boxes />
+    </div>
   </div>
 </template>
 
@@ -24,6 +25,8 @@ import AppNav from './components/AppNav.vue';
 }
 .main {
   flex: 1;
+  display: flex;
+  align-items: center;
   background-color: #ccc;
 }
 </style>

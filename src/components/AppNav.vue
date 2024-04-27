@@ -3,7 +3,7 @@ import { ref, onMounted, computed } from "vue";
 import Menu from "./Menu.vue";
 
 const list = ref([]);
-const isDrawerOpen = ref(true);
+const isDrawerOpen = ref(false);
 const focusItemKey = ref("");
 
 const toggleDrawer = (isShow) => {

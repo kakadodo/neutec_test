@@ -1,0 +1,47 @@
+[
+  {
+    "id": "1",
+    "isFlashing": false,
+    "hasBall": true
+  },
+  {
+    "id": "2",
+    "isFlashing": false,
+    "hasBall": false
+  },
+  {
+    "id": "3",
+    "isFlashing": true,
+    "hasBall": true
+  },
+  {
+    "id": "4",
+    "isFlashing": false,
+    "hasBall": false
+  },
+  {
+    "id": "5",
+    "isFlashing": true,
+    "hasBall": false
+  },
+  {
+    "id": "6",
+    "isFlashing": false,
+    "hasBall": false
+  },
+  {
+    "id": "7",
+    "isFlashing": false,
+    "hasBall": true
+  },
+  {
+    "id": "8",
+    "isFlashing": false,
+    "hasBall": false
+  },
+  {
+    "id": "9",
+    "isFlashing": true,
+    "hasBall": true
+  }
+]
