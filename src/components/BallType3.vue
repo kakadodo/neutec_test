@@ -16,7 +16,7 @@ const createBall = () => {
   setTimeout(() => {
     ballList.value[id].left = Math.random() * 100 - (15 / ballWrapperRef.value.offsetWidth * 100);
     ballList.value[id].top = Math.random() * 100 - (15 / ballWrapperRef.value.offsetHeight * 100);
-  }, 500);
+  }, 300);
 };
 onMounted(() => {
   timer.value = setInterval(() => {

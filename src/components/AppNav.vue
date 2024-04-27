@@ -93,6 +93,7 @@ onMounted(async () => {
   height: 100%;
   transform: translateX(100%);
   transition: transform 0.3s;
+  z-index: 1;
   &.show {
     transform: translateX(0);
   }
@@ -109,7 +110,7 @@ onMounted(async () => {
     top: 0;
     width: 50%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 85%);
+    background-color: rgba(0, 0, 0, 0.9);
     color: #fff;
     overflow-y: auto;
   }
