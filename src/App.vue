@@ -38,7 +38,7 @@ const switchBallType = (type) => {
   </div>
 </template>
 
-<style scoped>
+<style lang="scss">
 .wrapper {
   position: relative;
   margin: 0 auto;
@@ -61,7 +61,7 @@ const switchBallType = (type) => {
   display: flex;
   gap: 10px;
   margin-bottom: 10px;
-  
+
   button {
     padding: 4px 8px;
     border: 1px solid #000;

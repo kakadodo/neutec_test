@@ -1,41 +1,34 @@
 <script setup>
-import { ref, onMounted, computed } from "vue";
-import Menu from "./Menu.vue";
+import { ref, onMounted } from "vue";
+import RecursiveMenu from "./RecursiveMenu/index.vue";
+import IterativeMenu from "./IterativeMenu/index.vue";
 
+/** 原始數據 */
 const list = ref([]);
-const isDrawerOpen = ref(false);
-const focusItemKey = ref("");
 
+/** 側邊選單開關 */
+const isDrawerOpen = ref(false);
 const toggleDrawer = (isShow) => {
   isDrawerOpen.value = isShow;
 };
 
+/** 側邊選單焦點項目 */
+const focusItemKey = ref("");
 const onUpdateFocusItem = (key) => {
   focusItemKey.value = key;
   localStorage.setItem("FOCUS_ITEM_KEY", key);
 };
 
-const flattenList = ref([]);
-const getFlattenMenu = (menu) => {
-  const flatMenu = [];
-  const flatten = (menu, parentText) => {
-    menu.forEach((item) => {
-      let collection = parentText? [...parentText, item.text] : [item.text];
-      flatMenu.push({ key: item.key, text: collection.join('->') });
-      if (item.children) {
-        flatten(item.children, collection);
-      }
-    });
-  };
-  flatten(menu);
-  return flatMenu;
+/** 菜單資料處理類型 */
+const menuDataType = ref(1);
+const switchMenuDataType = (type) => {
+  menuDataType.value = type;
 };
 
 onMounted(async () => {
   const data = await fetch(`${import.meta.env.BASE_URL}/api/menu.json`);
   list.value = await data.json();
   focusItemKey.value = localStorage.getItem("FOCUS_ITEM_KEY") ?? "";
-  flattenList.value = getFlattenMenu(list.value);
 });
 </script>
 
@@ -56,20 +49,31 @@ onMounted(async () => {
     <div :class="['drawer', { show: isDrawerOpen }]">
       <div class="drawer-backdrop" @click="toggleDrawer(false)"></div>
       <div class="drawer-container">
-        <select v-model="focusItemKey" class="select">
-          <option value="" disabled>--</option>
-          <option
-            v-for="item in flattenList"
-            :value="item.key"
-            :key="item.key"
+        <div class="switch">
+          <button
+            :class="[{ active: menuDataType === 1 }]"
+            @click="switchMenuDataType(1)"
           >
-            {{ item.text }}
-          </option>
-        </select>
-        <Menu
-          :list="list"
+            遞迴
+          </button>
+          <button
+            :class="[{ active: menuDataType === 2 }]"
+            @click="switchMenuDataType(2)"
+          >
+            跌代
+          </button>
+        </div>
+        <RecursiveMenu
+          v-if="menuDataType === 1 && list.length"
+          :originList="list"
           :focusItemKey="focusItemKey"
-          @updateFocusItem="onUpdateFocusItem"
+          :onUpdateFocusItem="onUpdateFocusItem"
+        />
+        <IterativeMenu
+          v-if="menuDataType === 2 && list.length"
+          :originList="list"
+          :focusItemKey="focusItemKey"
+          :onUpdateFocusItem="onUpdateFocusItem"
         />
       </div>
     </div>
@@ -116,7 +120,7 @@ onMounted(async () => {
     overflow-y: auto;
   }
 }
-.select {
+:deep(.select) {
   margin: 10px 20px;
   width: calc(100% - 40px);
 }
