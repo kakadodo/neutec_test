@@ -31,7 +31,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div ref="ballWrapperRef" class="ball-wrapper" @click="getClickPosition">
+  <div ref="ballWrapperRef" class="ball-wrapper">
     <div
       class="ball"
       v-for="ball in ballList"

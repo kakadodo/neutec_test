@@ -34,7 +34,7 @@ onBeforeUnmount(() => {
 <style scoped lang="scss">
 .ball-wrapper.ball-move {
   .ball {
-    transition: left 1.5s, top 1.5s;
+    transition: left 1.5s;
     @for $i from 1 through 9 {
       @if $i < 4 {
         &.ball-#{$i} {
@@ -42,11 +42,11 @@ onBeforeUnmount(() => {
         }
       } @else if $i < 7 {
         &.ball-#{$i} {
-          left: calc((100% / 3 * $i) - (100% / 3 * 3) - (100% / 3 / 2) + 66%);
+          left: calc(100% / 3 * ($i - 3) - (100% / 3 / 2) + 66%);
         }
       } @else {
         &.ball-#{$i} {
-          left: calc((100% / 3 * $i) - (100% / 3 * 6) - (100% / 3 / 2) + 66%);
+          left: calc(100% / 3 * ($i - 6) - (100% / 3 / 2) + 66%);
         }
       }
     }
